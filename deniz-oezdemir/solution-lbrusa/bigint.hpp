@@ -6,9 +6,14 @@
 #include <algorithm> // for reverse vector
 
 class bigint {
+
+private:
+	std::vector<int> digits;
+
 public:
 
 	bigint() : bigint(0) {} // like int() creates a 0 int
+	
 	bigint(size_t n) {
 		while (n > 0) {
 			digits.push_back(n % 10);
@@ -178,8 +183,7 @@ public:
 	// apparently friends functions need to be defined outside the class?
 	friend std::ostream &operator<<(std::ostream &os, const bigint &bi);
 
-private:
-    std::vector<int> digits;
+
 };
 
 // as a friend function, it can access the private members of the class like digits

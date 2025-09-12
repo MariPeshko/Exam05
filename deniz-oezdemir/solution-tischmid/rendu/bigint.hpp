@@ -7,7 +7,9 @@
 
 struct bigint {
 	std::deque<int> digits; // each digit is a int, so substraction carry logic is easier. public because it's useful
+	
 	bigint() : digits(1) {} // default ctor: only one digit (namely 0)
+	
 	bigint(size_t init) {
 		while (init) {
 			digits.push_front(static_cast<int>(init % 10));
@@ -17,6 +19,7 @@ struct bigint {
 			digits.push_front(0);
 	}
 	bigint(const bigint& other) : digits(other.digits) {} // trivial
+	
 	bigint &operator=(const bigint& other) {
 		digits = other.digits;
 		return *this;

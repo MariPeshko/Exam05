@@ -8,10 +8,10 @@ private:
     std::string num;
 
 public:
+    bigint() : num("0") {}
     // constructors / copy assignemnt operators
     bigint(size_t n) : num(std::to_string(n)) {}
-    bigint() : num("0") {}
-
+    
     bigint(const bigint& oth) : num(oth.num) {}
 
     bigint(const std::string& n) {
