@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm> // for reverse vector
 
+
 class bigint {
 
 private:

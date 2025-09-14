@@ -20,17 +20,29 @@ public:
     { digits.push_back(0); }
 
     // Parameter  big integer intialization with Integer
-    bigint(const long long bignum) : bignum_str(std::to_string(bignum)) // longl long is signed type
+    bigint(long long bignum) // longl long is signed type
     {
-
+        while (bignum > 0) {
+            digits.push_back(bignum % 10);
+            bignum /= 10;
+        }
     };
 
-    // Parameter big integer initialization with String
+    /* // Parameter big integer initialization with String
     bigint(const std::string& str_number) : bignum_str(str_number)
     {
         /// convert string to vector of integers
-    };
+    }; */
+    friend std::ostream &operator<<(std::ostream &os, const bigint &bi);
 
 };
 
 #endif
+
+// as a friend function, it can access the private members of the class like digits
+std::ostream &operator<<(std::ostream &os, const bigint &bi) {
+	for (int digit : bi.digits) {
+		os << digit;
+	}
+	return os;
+}

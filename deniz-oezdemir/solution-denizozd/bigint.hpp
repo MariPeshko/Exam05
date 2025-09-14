@@ -9,11 +9,9 @@ private:
 
 public:
     bigint() : num("0") {}
-    // constructors / copy assignemnt operators
+    // constructors
     bigint(size_t n) : num(std::to_string(n)) {}
-    
-    bigint(const bigint& oth) : num(oth.num) {}
-
+    // constructor string
     bigint(const std::string& n) {
         if (n.empty() || !std::all_of(n.begin(), n.end(), ::isdigit) || (n.size() > 1 && n[0] == '0')) {
             std::cout << "Invalid number string" << std::endl;
@@ -22,7 +20,10 @@ public:
         else
             num = n;
     }
+    
+    bigint(const bigint& oth) : num(oth.num) {}
 
+    // copy assignemnt operators
     bigint& operator=(const bigint& oth) {
         if (this != &oth) {
             num = oth.num;
@@ -126,3 +127,4 @@ public:
         return bigint();
     }
 };
+

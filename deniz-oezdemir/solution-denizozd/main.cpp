@@ -28,5 +28,20 @@ int main(){
 
     // step 6: extra test from exam
     std::cout << a - a << std::endl;
+
+    // Створення великого числа через digit shifting
+    // 99999999999999999999999999999999999999999... (200 цифр)
+    bigint huge(9);
+    huge <<= 89;  // зсув на 89 позицій: 9 + 89 нулів
+    huge += (bigint(99999999) << 81);  // додаємо ще вісім 9-ок
+    std::cout << huge << std::endl;
+    huge += (bigint(99999999) << 73);  // і так далі...
+    // ... або інший спосіб створення через операції
+    
+    std::cout << huge << std::endl;
+    
+    bigint one(1);
+    std::cout << "huge + one " << huge + one << std::endl;  // huge + 1
+    std::cout << one - one << std::endl;  // 0
     return 0;
 }
