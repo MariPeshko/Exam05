@@ -1,6 +1,27 @@
 #include "bigint.hpp"
 #include <iostream>
 
+/* static void my_test_00() {
+
+	{
+	std::string divider(60, '-');
+	std::cout << divider << std::endl;
+	const bigint a(999);
+	bigint b(999);
+
+	std::cout << "a + b = " << a + b << std::endl;
+	}
+	
+	std::string divider(60, '-');
+	std::cout << divider << std::endl;
+	const bigint a(9898);
+	bigint b(7676);
+
+	std::cout << "a + b = " << a + b << std::endl;
+
+	return;
+} */
+
 int main()
 {
 
@@ -12,10 +33,18 @@ int main()
 	std::cout << "b = " << b << std::endl;
 	std::cout << "c = " << c << std::endl;
 	std::cout << "d = " << d << std::endl;
-	/* std::cout << "e = " << e << std::endl;
+	std::cout << "e = " << e << std::endl;
+
 	std::cout << "a + b = " << a + b << std::endl;
+
+	//my_test_00();
+
+	bigint f = a + b;
+	std::cout << "f = " << f << std::endl;
+
 	std::cout << "(c += a) = " << (c += a) << std::endl;
-	std::cout << "b = " << b << std::endl;
+
+	/* std::cout << "b = " << b << std::endl;
 	std::cout << "++b = " << ++b << std::endl;
 	std::cout << "b++ = " << b++ << std::endl;
 	std::cout << "(b << 10) + 42 = " << (b << 10) + 42 << std::endl;

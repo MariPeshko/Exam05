@@ -16,12 +16,18 @@ public:
 	bigint() : bigint(0) {} // like int() creates a 0 int
 	
 	bigint(size_t n) {
+		// my update
+		if (n == 0) {
+			digits.push_back(0);  // explicitly store 0
+			return;
+		}
 		while (n > 0) {
 			digits.push_back(n % 10);
 			n /= 10;
 		}
 		std::reverse(digits.begin(), digits.end()); //reverse is defined in algorithm header
 	}
+
 	bigint(const bigint& other) : digits(other.digits) {} // vector has a deep copy constructor
 	bigint& operator=(const bigint& other) {
 		if (this != &other) {
@@ -32,7 +38,11 @@ public:
 
     // Addition - should be taking a const big int and marked as const
     bigint operator+(const bigint& other) const {
+
         bigint result;
+		// my update
+		result.digits.clear();  // очистити [0], щоб почати з порожнього вектора
+
         int carry = 0;
         int i = digits.size() - 1, j = other.digits.size() - 1;
         while (i >= 0 || j >= 0 || carry > 0) {
@@ -194,3 +204,5 @@ std::ostream &operator<<(std::ostream &os, const bigint &bi) {
 	}
 	return os;
 }
+
+

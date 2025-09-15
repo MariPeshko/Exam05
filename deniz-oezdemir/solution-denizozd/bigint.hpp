@@ -11,6 +11,7 @@ public:
     bigint() : num("0") {}
     // constructors
     bigint(size_t n) : num(std::to_string(n)) {}
+
     // constructor string
     bigint(const std::string& n) {
         if (n.empty() || !std::all_of(n.begin(), n.end(), ::isdigit) || (n.size() > 1 && n[0] == '0')) {
@@ -40,6 +41,7 @@ public:
         return os << b.num;
     }
 
+    // Only handles positive numbers (digits only)
     std::string add_strings(const std::string& n1, const std::string& n2) const {
         std::string result;
         int carry = 0, i = n1.size() - 1, j = n2.size() - 1;
@@ -71,11 +73,18 @@ public:
         return tmp;
     }
 
+    // shift
     bigint operator<<(size_t shift) const {
         return bigint(num + std::string(shift, '0'));
     }
 
-    bigint& operator<<=(size_t shift) {
+    /* bigint& operator<<=(size_t shift) {
+        num += std::string(shift, '0');
+        return *this;
+    } */
+
+    bigint& operator<<=(const bigint& b) {
+        size_t shift = std::stoull(b.num);
         num += std::string(shift, '0');
         return *this;
     }
