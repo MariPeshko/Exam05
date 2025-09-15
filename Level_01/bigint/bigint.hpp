@@ -59,8 +59,20 @@ public:
 		return *this;
 	}
 
-	// ++b
-	// b++
+	// ++b pre-increament
+    bigint& operator++() {
+        num = addstr(num, "1");
+        return *this;
+    }
+    
+	// b++ post-increament
+    bigint operator++(int) {
+		
+		bigint tmp = *this;
+        num = addstr(num, "1");
+        return tmp;
+        
+    }
 
     
     friend std::ostream &operator<<(std::ostream &os, const bigint &bi);
