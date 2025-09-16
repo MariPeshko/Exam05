@@ -49,18 +49,34 @@ int main()
 	std::cout << "b = " << b << std::endl;
 	std::cout << "b++ = " << b++ << std::endl;
 	std::cout << "b = " << b << std::endl;
+
+	std::cout << d << " < " << a << " = " << std::boolalpha << (d < a) << std::endl;
+	std::cout << d << " < " << e << " = " << (d < e) << std::endl;
+	std::cout << a << " < " << d << " = " << (a < d) << std::endl;
+
+	std::cout << d << " > " << a << " = " << (d > a) << std::endl;
+	std::cout << a << " > " << d << " = " << (a > d) << std::endl;
+
+	std::cout << d << " == " << a << " = " << (d == a) << std::endl;
+	std::cout << d << " == " << e << " = " << (d == e) << std::endl;
+
+	std::cout << d << " != " << a << " = " << (d != a) << std::endl;
+	std::cout << d << " != " << d << " = " << (d != d) << std::endl;
 	
+	std::cout << d << " <= " << a << " = " << (d <= a) << std::endl;
+	std::cout << d << " >= " << a << " = " << (d >= a) << std::endl;
+	std::cout << a << " >= " << d << " = " << (a >= d) << std::endl;
+	std::cout << d << " >= " << e << " = " << (d >= e) << std::endl;
+
 	/* std::cout << "(b << 10) + 42 = " << (b << 10) + 42 << std::endl;
 	std::cout << "(d <<= 4) = " << (d <<= 4) << std::endl;
 	std::cout << "(d >>= 2) = " << (d >>= (const bigint)2) << std::endl;
 	std::cout << "a = " << a << std::endl;
-	std::cout << "d = " << d << std::endl;
-	std::cout << "(d < a) = " << (d < a) << std::endl;
-	std::cout << "(d > a) = " << (d > a) << std::endl;
-	std::cout << "(d == a) = " << (d == a) << std::endl;
-	std::cout << "(d != a) = " << (d != a) << std::endl;
-	std::cout << "(d <= a) = " << (d <= a) << std::endl;
-	std::cout << "(d >= a) = " << (d >= a) << std::endl; */
+	std::cout << "d = " << d << std::endl; */
+
+	bigint g(43);
+	std::cout << g - g << std::endl;
+
 }
 
 /* // Створення великого числа через digit shifting

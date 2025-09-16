@@ -17,6 +17,13 @@ int main()
 	std::cout << "a + b = " << a + b << std::endl;
 
 	std::cout << "(c += a) = " << (c += a) << std::endl;
+
+	std::cout << d << " < " << a << " = " << std::boolalpha << (d < a) << std::endl;
+	std::cout << d << " < " << e << " = " << (d < e) << std::endl;
+	std::cout << a << " < " << d << " = " << (a < d) << std::endl;
+
+	std::cout << d << " > " << a << " = " << (d > a) << std::endl;
+	std::cout << a << " > " << d << " = " << (a > d) << std::endl;
 	
 	/* std::cout << "b = " << b << std::endl;
 	std::cout << "++b = " << ++b << std::endl;

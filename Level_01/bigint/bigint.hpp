@@ -74,6 +74,49 @@ public:
         
     }
 
+    // <, >, ==, !=, <=, >=
+    bool	operator<(const bigint &b) const {
+		if (num.size() < b.num.size())
+			return true;
+		else if (num.size() > b.num.size())
+			return false;
+		else if (num < b.num)
+			return true;
+		return false;
+	}
+
+	// this operator can use operator above!
+	bool	operator>(const bigint &b) const {
+		if (num.size() > b.num.size())
+			return true;
+		else if (num.size() < b.num.size())
+			return false;
+		else if (num > b.num)
+			return true;
+		return false;
+	}
+
+	bool	operator==(const bigint &b) const {	return this->num == b.num; }
+
+	bool	operator!=(const bigint &b) const {	return this->num != b.num; }
+
+	// this operator can be more concise using operator >
+	bool	operator<=(const bigint &b) const {
+		if (*this < b || *this == b)
+			return true;
+		else return false;
+	}
+
+	bool	operator>=(const bigint &b) const {
+		if (b > *this)
+			return false;
+		return true;
+	}
+
+	bigint	operator-(const bigint &b) {
+		(void)b;
+		return bigint(0);
+	}
     
     friend std::ostream &operator<<(std::ostream &os, const bigint &bi);
 
