@@ -154,7 +154,36 @@ public:
 	}
 
 	// >>
+	/* bigint	operator<<(size_t shift) const {
+		return bigint(std::string(shift, '0') + num);
+	} */
+
 	// >>=
+	/* bigint& operator>>=(size_t shift) {
+		std::cout << "size_t shift " << shift << " ";
+		if (shift >= num.size())
+			num = "0";
+		else {
+			num = num.substr(0, num.size() - shift);
+		}
+		return *this;
+	} */
+
+	// value of b
+	bigint& operator>>=(const bigint &b) {
+		// shift
+		if (b >= bigint(num.size()))
+			num = "0";
+		else {
+			bigint i(0);
+			while (i < b) 
+			{
+				num = num.substr(0, num.size() - 1);
+				i++;
+			}
+		}
+		return *this;
+	}
     
     friend std::ostream &operator<<(std::ostream &os, const bigint &bi);
 
@@ -167,20 +196,3 @@ std::ostream &operator<<(std::ostream &os, const bigint &bi) {
 	os << bi.num;
 	return os;
 }
-
-/* // ✅ Добре - пропускає провідні нулі
-std::ostream &operator<<(std::ostream &os, const bigint &bi) {
-    bool leading = true;
-    bool printed = false;
-    
-    for (int digit : bi.digits) {
-        if (digit != 0) leading = false;
-        if (!leading) {
-            os << digit;
-            printed = true;
-        }
-    }
-    
-    if (!printed) os << '0';  // якщо все нулі
-    return os;
-} */
