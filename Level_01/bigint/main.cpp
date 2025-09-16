@@ -28,7 +28,10 @@ int main()
 	const bigint a(42);
 	bigint b(21), c, d(1337), e(d);
 
-	//std::cout << "(c <<= 10) = " << (c <<= 10) << std::endl;
+	//std::cout << "(c << 10) = " << (c << 10) << std::endl;
+	std::cout << "(c <<= 10) = " << (c <<= 10) << std::endl;
+	std::cout << "(b <<= 10) = " << (b <<= 10) << std::endl;
+
 	std::cout << "a = " << a << std::endl;
 	std::cout << "b = " << b << std::endl;
 	std::cout << "c = " << c << std::endl;

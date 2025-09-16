@@ -21,9 +21,32 @@ public:
     bigint(long long bignum) : num(std::to_string(bignum)) {};
 
 	// Constructor with String
-	bigint(const std::string &bignum) : num(bignum) {}; 
+	/**
+	 * std::string::find_first_not_of is a member function of 
+	 * the std::string class. It searches the string for the 
+	 * first character that does not match any of the characters 
+	 * specified in its argument. It returns the index of this 
+	 * first non-matching character.
+	 * 
+	 * std::string::npos is a special constant value that is returned 
+	 * by string search functions (like find_first_not_of) when the 
+	 * character or substring being searched for is not found.
+	 */
+	bigint(const std::string &bignum) {
+		if (bignum.empty()) {
+            num = "0";
+            return;
+        }
+        size_t first_digit = bignum.find_first_not_of('0');
+        if (std::string::npos == first_digit) {
+            num = "0"; // all zeros
+        } else {
+            num = bignum.substr(first_digit);
+        }
+	}; 
 
     // Copy and assignment
+	// ??? Do I need them ???
 
     // returns arithmetic addition of str1+str2
     // Extract digits as chars → convert to int → add → convert back to char
@@ -117,6 +140,21 @@ public:
 		(void)b;
 		return bigint(0);
 	}
+
+	// Append/remove zeros for left/right shifts (<<, >>, <<=, >>=) 
+	bigint	operator<<(size_t shift) const {
+		return bigint(num + std::string(shift, '0'));
+	}
+
+	// ? parameter bigint instead of size_t ?
+	bigint&	operator<<=(size_t shift) {
+		if(num != "0")
+			num = num + std::string(shift, '0');
+		return *this;
+	}
+
+	// >>
+	// >>=
     
     friend std::ostream &operator<<(std::ostream &os, const bigint &bi);
 
