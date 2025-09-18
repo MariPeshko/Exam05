@@ -1,9 +1,7 @@
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
+#include <algorithm> // fo reverse
 
-// для простоти #pragma once
 #ifndef BIGINT_HPP
 # define BIGINT_HPP
 
@@ -14,10 +12,8 @@ private:
 
 public:
 
-    // Default constructor
     bigint() : num("0") {}
 
-    //  Constructor with Integer
     bigint(long long bignum) : num(std::to_string(bignum)) {};
 
 	// Constructor with String
@@ -44,9 +40,7 @@ public:
             num = bignum.substr(first_digit);
         }
 	}; 
-
-    // Copy and assignment
-	// ??? Do I need them ???
+    // Copy and assignment. ??? Do I need them ???
 
     // returns arithmetic addition of str1+str2
     // Extract digits as chars → convert to int → add → convert back to char
@@ -90,13 +84,10 @@ public:
     
 	// b++ post-increament
     bigint operator++(int) {
-		
 		bigint tmp = *this;
         num = addstr(num, "1");
         return tmp;
-        
     }
-
     // <, >, ==, !=, <=, >=
     bool	operator<(const bigint &b) const {
 		if (num.size() < b.num.size())
@@ -110,24 +101,17 @@ public:
 
 	// this operator can use operator above!
 	bool	operator>(const bigint &b) const {
-		if (num.size() > b.num.size())
+		if (b < *this)
 			return true;
-		else if (num.size() < b.num.size())
+		else
 			return false;
-		else if (num > b.num)
-			return true;
-		return false;
 	}
 
-	bool	operator==(const bigint &b) const {	return this->num == b.num; }
-
-	bool	operator!=(const bigint &b) const {	return this->num != b.num; }
-
-	// this operator can be more concise using operator >
 	bool	operator<=(const bigint &b) const {
-		if (*this < b || *this == b)
+		if (*this > b)
+			return false;
+		else
 			return true;
-		else return false;
 	}
 
 	bool	operator>=(const bigint &b) const {
@@ -135,6 +119,10 @@ public:
 			return false;
 		return true;
 	}
+
+	bool	operator==(const bigint &b) const {	return this->num == b.num; }
+
+	bool	operator!=(const bigint &b) const {	return this->num != b.num; }
 
 	bigint	operator-(const bigint &b) {
 		(void)b;
@@ -146,32 +134,47 @@ public:
 		return bigint(num + std::string(shift, '0'));
 	}
 
-	// ? parameter bigint instead of size_t ?
-	bigint&	operator<<=(size_t shift) {
-		if(num != "0")
-			num = num + std::string(shift, '0');
+	bigint	operator<<(const bigint &b) const {
+		bigint result;
+		result.num = num;
+		if(num != "0") {
+			bigint	tmp(0);
+			while (tmp < b) {
+				result.num = result.num + std::string(1, '0');
+				tmp++;
+			}
+		}
+		return result;
+	}
+
+	bigint& operator<<=(const bigint &b) {
+		if(num != "0") {
+			bigint	tmp(0);
+			while (tmp < b) {
+				num = num + std::string(1, '0');
+				tmp++;
+			}
+		}
 		return *this;
 	}
 
-	// >>
-	/* bigint	operator<<(size_t shift) const {
-		return bigint(std::string(shift, '0') + num);
-	} */
-
-	// >>=
-	/* bigint& operator>>=(size_t shift) {
-		std::cout << "size_t shift " << shift << " ";
-		if (shift >= num.size())
-			num = "0";
+	bigint operator>>(const bigint &b) const {
+		bigint result;
+		if (b >= bigint(num.size()))
+			result.num = "0";
 		else {
-			num = num.substr(0, num.size() - shift);
+			result.num = num;
+			bigint tmp(0);
+			while (tmp < b) {
+				result.num = result.num.substr(0, result.num.size() - 1);
+				tmp++;
+			}
 		}
-		return *this;
-	} */
+		return result;
+	}
 
 	// value of b
 	bigint& operator>>=(const bigint &b) {
-		// shift
 		if (b >= bigint(num.size()))
 			num = "0";
 		else {
@@ -185,7 +188,7 @@ public:
 		return *this;
 	}
     
-    friend std::ostream &operator<<(std::ostream &os, const bigint &bi);
+	friend std::ostream &operator<<(std::ostream &os, const bigint &bi);
 
 };
 
