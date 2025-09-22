@@ -23,3 +23,9 @@ array_bag and tree_bag and implement the searchable_bag abstract class.
 Implement the class set that will wrap a searchable_bag and turn it into a set.
 You will find in this dir a main that must compile with your code.
 All classes should be under orthodox canonical form. Don't forget the const.
+
+My notes:
+"Wrap" in programming means to surround or enclose something to add 
+new behavior.
+
+mpeshko

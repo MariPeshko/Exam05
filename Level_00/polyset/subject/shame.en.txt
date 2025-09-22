@@ -13,4 +13,16 @@ This is used in two distinct senses: either equal values are considered
 identical and are simply counted, or equal values are considered equivalent 
 and are stored as distinct items.
 
+My notes:
 
+Set:
+- No duplicates allowed
+- Order doesn't matter
+Example: {1, 2, 3} - inserting 2 again does nothing
+
+Bag (Multiset):
+- Duplicates allowed
+- Order doesn't matter
+- Example: {1, 2, 2, 3} - can have multiple 2s
+
+mpeshko
