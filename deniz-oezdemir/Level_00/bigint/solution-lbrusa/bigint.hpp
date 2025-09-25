@@ -112,23 +112,35 @@ public:
 	}	
 
 	// if needed implement both of the above with bigint as param
-	
+	// mpeshko improvements
 	bigint operator<<(const bigint& other) const {
+		bigint copy(*this);
+		bigint temp(0);
+		while (temp < other) {
+			copy = copy << 1;
+			temp++;
+		}
+		return copy;
+	}
+	// lbrusa 
+	/* bigint operator<<(const bigint& other) const {
 		bigint temp(0);
 		while (temp < other) {
 			*this << 1;
 			temp++;
 		}
 		return *this;
-	}
+	} */
 
-	bigint operator>>(const bigint& other)const {
+	// mpeshko improvements
+	bigint operator>>(const bigint& other) const {
+		bigint copy(*this);
 		bigint temp(0);
 		while (temp < other) {
-			*this >> 1;
+			copy = copy >> 1;
 			temp++;
 		}
-		return *this;
+		return copy;
 	}	
 
 	bigint& operator<<=(size_t n) {

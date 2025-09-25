@@ -15,7 +15,7 @@ public:
     // constructor string
     bigint(const std::string& n) {
         if (n.empty() || !std::all_of(n.begin(), n.end(), ::isdigit) || (n.size() > 1 && n[0] == '0')) {
-            std::cout << "Invalid number string" << std::endl;
+            //std::cout << "Invalid number string" << std::endl;
             num = "0";
         }
         else
@@ -78,6 +78,16 @@ public:
         return bigint(num + std::string(shift, '0'));
     }
 
+    // mpeshko function
+    bigint operator<<(const bigint &b) const {
+		std::string res = num;
+		bigint tmp(b);
+		int i = 0;
+		while(tmp > i++) {
+			res += "0";
+		}
+		return (bigint(res)); };
+
     /* bigint& operator<<=(size_t shift) {
         num += std::string(shift, '0');
         return *this;
@@ -101,6 +111,21 @@ public:
         }
         return *this;
     }
+
+    // mpeshko function
+    bigint operator>>(const bigint &shift) const {
+		bigint res(*this);
+		if (shift >= res) {
+			res.num = "0"; 
+			return res;
+		} else { 
+			int i = 0;
+			while (shift > i)
+				i++;
+			res.num = res.num.substr(0, res.num.size() - i);
+		}
+		return res;
+	};
 
     bool operator<(const bigint& oth) const {
         if (num.size() < oth.num.size())

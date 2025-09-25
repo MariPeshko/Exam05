@@ -164,12 +164,14 @@ struct bigint {
 		return true; // equal
 	}
 
+	// mpeshko correction
 	bool operator>(const bigint& other) const {
-		return !(*this < other);
+		return !(*this <= other); // !(*this < other);  // ❌ WRONG!
 	}
 
+	// mpeshko correction
 	bool operator>=(const bigint& other) const {
-		return !(*this <= other);
+		return !(*this < other); // !(*this <= other);  // ❌ WRONG!
 	}
 
 	bool operator==(const bigint& other) const {

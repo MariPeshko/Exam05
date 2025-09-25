@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Paths to your two solution folders
+SOLUTION1="Level_00/bigint"
+SOLUTION2="Level_00/exam_train"
+
+# Compile first solution with its own main.cpp
+c++ -Wall -Wextra -Werror "$SOLUTION1/main.cpp" "$SOLUTION1/bigint.cpp" -I"$SOLUTION1" -o prog1
+if [ $? -ne 0 ]; then
+    echo "Compilation failed for solution 1"
+    exit 1
+fi
+
+# Compile second solution with its own main.cpp
+c++ -Wall -Wextra -Werror "$SOLUTION2/main.cpp" "$SOLUTION2/bigint.cpp" -I"$SOLUTION2" -o prog2
+if [ $? -ne 0 ]; then
+    echo "Compilation failed for solution 2"
+    exit 1
+fi
+
+# Run both and save output
+./prog1 > out1.txt
+./prog2 > out2.txt
+
+# Compare outputs line by line
+DIFF_FOUND=0
+paste -d'\n' out1.txt out2.txt | while read -r expected && read -r actual; do
+    if [ "$expected" != "$actual" ]; then
+        echo "Expected:"
+        echo "$expected"
+        echo "Your output:"
+        echo  "$actual"
+        echo
+        DIFF_FOUND=1
+    fi
+done
+
+# Check the exit code of the while loop and DIFF_FOUND
+if grep -q "Expected:" <(paste -d'\n' out1.txt out2.txt | while read -r expected && read -r actual; do
+    if [ "$expected" != "$actual" ]; then
+        echo "Expected: $expected"
+    fi
+done); then
+    echo
+    echo "Outputs are different."
+else
+    echo
+    echo "Outputs are identical."
+fi
+
+# Clean up
+rm prog1 prog2 out1.txt out2.txt
