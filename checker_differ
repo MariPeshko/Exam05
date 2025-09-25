@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Configuration - easily changeable
+SOLUTION1_PATH="Level_00/vect2/solution-denizozd-cp"
+SOLUTION2_PATH="mitadic/vect2_to_cmp"
+FILE_NAME="vect2.hpp"
+
+# Short names for output
+SOLUTION1_NAME="denizozd"
+SOLUTION2_NAME="mitadic"
+
+# Check if files exist
+if [ ! -f "$SOLUTION1_PATH/$FILE_NAME" ]; then
+    echo "Error: $SOLUTION1_PATH/$FILE_NAME not found"
+    exit 1
+fi
+
+if [ ! -f "$SOLUTION2_PATH/$FILE_NAME" ]; then
+    echo "Error: $SOLUTION2_PATH/$FILE_NAME not found"
+    exit 1
+fi
+
+echo "Comparing $FILE_NAME between $SOLUTION1_NAME and $SOLUTION2_NAME..."
+echo
+
+# Copy files to temporary names for comparison
+cp "$SOLUTION1_PATH/$FILE_NAME" out1.txt
+cp "$SOLUTION2_PATH/$FILE_NAME" out2.txt
+
+# Compare outputs line by line and count differences
+DIFF_COUNT=0
+paste -d'\n' out1.txt out2.txt | while IFS= read -r line1 && IFS= read -r line2; do
+    if [ "$line1" != "$line2" ]; then
+        DIFF_COUNT=$((DIFF_COUNT + 1))
+        echo "--- $DIFF_COUNT difference ---"
+        echo "$SOLUTION1_NAME:"
+        echo "$line1"
+        echo "$SOLUTION2_NAME:"
+        echo "$line2"
+        echo
+        # Write the count to a temp file since we're in a subshell
+        echo "$DIFF_COUNT" > diff_count.tmp
+
+        # Stop when we reach 10 differences
+        if [ "$DIFF_COUNT" -ge 10 ]; then
+            echo "--- Stopping at 10 differences ---"
+            break
+        fi
+    fi
+done
+
+# Read the final count
+if [ -f diff_count.tmp ]; then
+    TOTAL_DIFF=$(cat diff_count.tmp)
+    rm diff_count.tmp
+    echo
+    echo "Total: $TOTAL_DIFF differences found."
+else
+    echo
+    echo "Files are identical."
+fi
+
+# Clean up temporary files
+rm out1.txt out2.txt

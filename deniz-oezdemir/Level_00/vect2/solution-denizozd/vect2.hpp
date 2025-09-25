@@ -1,26 +1,25 @@
+#pragma once
 #include <iostream>
 
 class vect2 {
 private:
-    int x, y;
+	int x, y;
 
 public:
-    vect2() : x(0), y(0) {};
-    vect2(int x, int y) : x(x), y(y) {};
-    vect2(const vect2& oth) : x(oth.x), y(oth.y) {};
-
-    vect2& operator=(const vect2& oth) {
-        if (*this != oth)  {
-            x = oth.x;
-            y = oth.y;
-        }
-        return *this;
-    }
-
+	vect2() : x(0), y(0) {}
+	vect2(const int x_input, const int y_input) : x(x_input), y(y_input) {}
+	vect2(const vect2& oth) : x(oth.x), y(oth.y) {}
+	~vect2(void) {}
+	vect2& operator=(const vect2& oth) {
+		if (this != &oth) {
+			x = oth.x;
+			y = oth.y;
+		}
+		return *this;
+	}
     int& operator[](int i) {
         return (i == 0 ? x : y);
     }
-
     int operator[](int i) const {
         return (i == 0 ? x : y);
     }
@@ -102,3 +101,4 @@ public:
         return !(x == oth.x && y == oth.y);
     }
 };
+

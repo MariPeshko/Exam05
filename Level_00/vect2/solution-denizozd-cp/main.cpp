@@ -1,5 +1,5 @@
-#include <iostream>
 #include "vect2.hpp"
+#include <iostream>
 
 int main()
 {
