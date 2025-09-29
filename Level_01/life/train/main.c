@@ -28,7 +28,7 @@ int	main(int argc, char *argv[]) {
 	size_t	nbytes;
 	ssize_t bytes_read = 1;
     int fd = 0;
-	nbytes = sizeof(buf);
+	nbytes = BUFF;
 
 	while(bytes_read != 0) {
 		bytes_read = read(fd, buf, nbytes);
@@ -54,6 +54,7 @@ int	main(int argc, char *argv[]) {
 		putchar(cmds[i]);
 	}
 	putchar('\n');
+	free(buf);
 	free(cmds);
 	return 0;
 }
