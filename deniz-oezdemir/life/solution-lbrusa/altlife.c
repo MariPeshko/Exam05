@@ -23,7 +23,8 @@ int neighbors(const Life *g, int x, int y) {
 	return count;
 }
 
-const Life evolves(const Life l) {
+Life evolves(const Life l) // remove const from the return type
+{
 	Life next = l;
 	for (int i = 0; i < l.height; i++) {
 		for (int j = 0; j < l.width; j++) {

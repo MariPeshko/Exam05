@@ -1,5 +1,3 @@
-Life:
-
 Submitted files: *.c, *.h
 Allowed functions: atoi, read, putchar, malloc, calloc, realloc, free
 
@@ -27,14 +25,14 @@ Each cell outside of the array will be considered dead.
 
 Examples:
 
-$> echo 'sdxddssaaww' | ./a.out 5 5 O | cat -e
+$> echo 'sdxddssaaww' | ./a.out 5 5 0 | cat -e
      $
  OOO $
  O O $
  OOO $
      $
 
-$> echo 'sdxssdswdxdddxsaddawxwdxwaa' | ./a.out 1O 6 O | cat -e
+$> echo 'sdxssdswdxdddxsaddawxwdxwaa' | ./a.out 10 6 0 | cat -e
           $
  O   OOO  $
  O     O  $
@@ -42,7 +40,7 @@ $> echo 'sdxssdswdxdddxsaddawxwdxwaa' | ./a.out 1O 6 O | cat -e
   O  OOO  $
           $
 
-$> echo 'dxss' | ./a.out 3 3 O | cat -e
+$> echo 'dxss' | ./a.out 3 3 0 | cat -e
  O $
  O $
  O $

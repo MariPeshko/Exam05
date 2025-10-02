@@ -22,7 +22,7 @@ each cell outside of the array will be considered dead.
 
 Examples:
 
-$> echo 'sdxddssaaww' | ./a.out 5 5 O | cat - e
+$> echo 'sdxddssaaww' | ./a.out 5 5 O | cat -e
      $
  OOO $
  O O $
