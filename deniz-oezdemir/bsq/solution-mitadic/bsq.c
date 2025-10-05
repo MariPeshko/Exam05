@@ -91,8 +91,7 @@ void do_map(FILE *stream, t_map *m)
 	size_t size = 0;
 
 	// extract and validate map body: start
-	for (int i = 0; i < m->map_i; i++)
-	{
+	for (int i = 0; i < m->map_i; i++) {
 		int nread = getline(&line, &size, stream);
 		if (m->map_j == UNINITIALIZED)
 			m->map_j = nread - 1;  // (nread -1) bc '\n' retained
@@ -109,7 +108,8 @@ void do_map(FILE *stream, t_map *m)
 		}
 		for (int j = 0; j < m->map_j; j++)
 		{
-			if (!(line[j] == m->empty || line[j] == m->obst || (j == m->map_j - 1 && line[j] == '\n')))
+			if (!(line[j] == m->empty || line[j] == m->obst || 
+				(j == m->map_j - 1 && line[j] == '\n')))
 			{
 				fprintf(stdout, "Error: invalid map\n");
 				return;
@@ -125,10 +125,17 @@ void do_map(FILE *stream, t_map *m)
 		fprintf(stdout, "Error: invalid map\n");
 		return;
 	}
+	free(line);
 	// extract and validate map body: end
 
 	find_bsq(m);
 	print_map(m);
+
+	for (int i = 0; i < m->map_i; i++) {
+		if(m->arr2d[i])
+			free(m->arr2d[i]);
+	}
+	free(m->arr2d);
 }
 
 void do_file(FILE* stream)
@@ -160,4 +167,5 @@ int main(int argc, char **argv)
 		fprintf(stdout, "Error: fopen fail\n");
 	else
 		do_file(stream);
+	fclose(stream); // mpeshko
 }

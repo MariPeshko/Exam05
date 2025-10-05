@@ -133,9 +133,9 @@ int handle_row(int row_idx, t_map map[static 1], char row[static 1]) {
 	int row_len = ft_strlen(row);
 
 	if (row_idx == -1) {
-		if (row_len < 7)
+		if (row_len < 7) {
 			return EXIT_FAILURE;
-
+		}
 		map->full = row[row_len - 1];
 		map->obstacle = row[row_len - 3];
 		map->empty = row[row_len - 5];
@@ -211,8 +211,9 @@ void print_map(t_map *map) {
 int parse_map(t_map map[static 1], FILE stream[static 1]) {
 	char *data = slurp(stream);
 
-	if (data == NULL)
+	if (data == NULL) {
 		return EXIT_FAILURE;
+	}
 	map->raw_data = data;
 	
 	int offset = 0;
@@ -227,9 +228,9 @@ int parse_map(t_map map[static 1], FILE stream[static 1]) {
 			++row_idx;
 			ends_with_nl = 1;
 
-			if (handle_row(row_idx, map, data + offset_to_start_of_row) == EXIT_FAILURE)
+			if (handle_row(row_idx, map, data + offset_to_start_of_row) == EXIT_FAILURE) {
 				return (free(data), free(map->rows), free_int_array(map->obstacle_counts), EXIT_FAILURE);
-
+			}
 			offset_to_start_of_row = offset + 1;
 		}
 		++offset;
@@ -350,12 +351,16 @@ void solve(t_map map[static 1]) {
 	print_filled_map(map, best_row, best_col, square_size);
 }
 
+// Benefits of static 1. Compiler knows stream is never NULL
+// It's a more explicit and safer way to write FILE *stream when you know 
+// NULL should never be passed.
 int handle_map(FILE stream[static 1]) {
 	t_map map;
 
 	ft_bzero(&map, sizeof(map));
-	if (parse_map(&map, stream) == EXIT_FAILURE)
+	if (parse_map(&map, stream) == EXIT_FAILURE) {
 		return EXIT_FAILURE;
+	}
 	if (preprocess_map(&map) == EXIT_FAILURE)
 		return EXIT_FAILURE;
 	solve(&map);
@@ -369,6 +374,8 @@ void map_error() {
 	fprintf(stderr, "map error\n");
 }
 
+
+// input format differs. the first line format: 9 . o x
 int main(int ac, char **av) {
 	if (ac < 1)
 		map_error();
@@ -380,8 +387,9 @@ int main(int ac, char **av) {
 			FILE *stream = fopen(av[idx], "r");
 			if (stream == NULL)
 				return EXIT_FAILURE;
-			if (handle_map(stream) == EXIT_FAILURE)
+			if (handle_map(stream) == EXIT_FAILURE) {
 				map_error();
+			}
 			(void)fclose(stream);
 		}
 	}
